@@ -1,0 +1,83 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+    <i class="bi bi-check-circle-fill"></i> <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+<% end %>
+
+<div class="page-header">
+  <h1><i class="bi bi-people-fill"></i> Sistema de Cadastro de Pessoas</h1>
+</div>
+
+<div class="mb-4">
+  <%= link_to new_pessoa_path, class: "btn btn-primary btn-lg" do %>
+    <i class="bi bi-person-plus-fill"></i> Nova Pessoa
+  <% end %>
+</div>
+
+<% if @pessoas.any? %>
+
+  <h3 class="mb-4" style="color: var(--primary-blue);">
+    <i class="bi bi-list-ul"></i>
+    Pessoas Cadastradas (<%= @pessoas.count %>)
+  </h3>
+
+  <% @pessoas.each do |pessoa| %>
+    <div class="card" id="pessoa_<%= pessoa.id %>">
+      <div class="card-body">
+        <div class="row align-items-center">
+
+          <div class="col-md-8">
+            <div class="pessoa-info mb-2">
+              <i class="bi bi-person-fill"></i>
+              <strong>Nome:</strong>
+              <span><%= pessoa.nome %></span>
+            </div>
+
+            <div class="pessoa-info mb-2">
+              <i class="bi bi-telephone-fill"></i>
+              <strong>Telefone:</strong>
+              <span><%= pessoa.telefone %></span>
+            </div>
+
+            <div class="pessoa-info mb-2">
+              <i class="bi bi-envelope-fill"></i>
+              <strong>Email:</strong>
+              <span><%= pessoa.email %></span>
+            </div>
+
+            <div class="pessoa-info">
+              <i class="bi bi-card-text"></i>
+              <strong>CPF:</strong>
+              <span><%= formatar_cpf(pessoa.cpf) %></span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="action-buttons">
+              <%= link_to edit_pessoa_path(pessoa), class: "btn btn-warning" do %>
+                <i class="bi bi-pencil-fill"></i> Editar
+              <% end %>
+
+              <%= button_to pessoa_path(pessoa),
+                  method: :delete,
+                  data: { turbo_confirm: "Tem certeza que deseja excluir #{pessoa.nome}?" },
+                  class: "btn btn-danger" do %>
+                <i class="bi bi-trash-fill"></i> Excluir
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <div class="alert alert-info text-center">
+    <i class="bi bi-info-circle-fill"></i>
+    Nenhuma pessoa cadastrada ainda. Clique em "Nova Pessoa" para começar!
+  </div>
+
+<% end %>

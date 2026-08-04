@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Sistema Cadastro" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Sistema Cadastro">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/cadastro.png" type="image/png">
+    <link rel="apple-touch-icon" href="/cadastro.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+      :root {
+        --primary-blue: #1e40af;
+        --secondary-blue: #3b82f6;
+        --light-blue: #dbeafe;
+        --dark-blue: #1e3a8a;
+        --accent-blue: #60a5fa;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .main-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        margin: 40px auto;
+        max-width: 1200px;
+      }
+
+      .page-header {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-weight: 700;
+        font-size: 2.5rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+      }
+
+      .btn-warning {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        border: none;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      }
+
+      .btn-danger {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+      }
+
+      .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--secondary-blue);
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-body {
+        padding: 25px;
+      }
+
+      .form-label {
+        color: var(--primary-blue);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .form-control {
+        border: 2px solid var(--light-blue);
+        border-radius: 10px;
+        padding: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: var(--secondary-blue);
+        box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+      }
+
+      .alert-danger {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        border: 2px solid #ef4444;
+        border-radius: 10px;
+        color: #991b1b;
+      }
+
+      .alert-success {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border: 2px solid #10b981;
+        border-radius: 10px;
+        color: #065f46;
+      }
+
+      .pessoa-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .pessoa-info i {
+        color: var(--secondary-blue);
+        font-size: 1.2rem;
+      }
+
+      .pessoa-info strong {
+        color: var(--dark-blue);
+        min-width: 100px;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      @media (max-width: 768px) {
+        .main-container {
+          margin: 20px;
+          padding: 20px;
+        }
+        
+        .page-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .action-buttons .btn {
+          width: 100%;
+        }
+      }
+    </style>
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="main-container">
+        <%= yield %>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

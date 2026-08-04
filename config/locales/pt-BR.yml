@@ -1,0 +1,16 @@
+pt-BR:
+  activerecord:
+    models:
+      pessoa: "Pessoa"
+    attributes:
+      pessoa:
+        nome: "Nome"
+        telefone: "Telefone"
+        email: "Email"
+        cpf: "CPF"
+  
+  helpers:
+    submit:
+      pessoa:
+        create: "Criar Pessoa"
+        update: "Atualizar Pessoa"
